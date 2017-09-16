@@ -2,9 +2,9 @@
 Android App to be used for scouting.
 
 ## Features 
-	+ Data entry as well as viewing data
-	+ Bluetooth syncing to a master device
-	+ To change the data that is entered you just have to change the config file
++ Data entry as well as viewing data
++ Bluetooth syncing to a master device
++ To change the data that is entered you just have to change the config file
 
 
 config file located in assets folder
