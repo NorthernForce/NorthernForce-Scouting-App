@@ -1,0 +1,110 @@
+<config>
+	<table
+		name="Teams">
+		<column
+			name="Team_Number"
+			type="int"
+			text="Team Number"></column>
+		<column
+			name="Team_Name"
+			type="String"
+			text="Team Name"></column>
+		<column
+			name="High_School"
+			type="String"
+			text="High School"></column>
+
+	</table>
+
+	<table
+		name="Matches">
+		<column
+			name="Team_Number"
+			type="int"
+			text="Team Number"></column>
+		<column
+			name="Match_Number"
+			type="int"
+			text="Match Number"></column>
+		<column
+			name="Event_Name"
+			type="String"
+			text="Event Name"></column>
+		<column
+			name="Red_One"
+			type="int"
+			text="Red One"></column>
+		<column
+			name="Red_Two"
+			type="int"
+			text="Red Two"></column>
+		<column
+			name="Red_Three"
+			type="int"
+			text="Red Three"></column>
+		<column
+			name="Blue_One"
+			type="int"
+			text="Blue One"></column>
+		<column
+			name="Blue_Two"
+			type="int"
+			text="Blue Two"></column>
+		<column
+			name="Blue_Three"
+			type="int"
+			text="Blue Three"></column>
+	</table>
+
+	<table
+		name="Performance">
+		<column
+			name="Team_Number"
+			type="Number"
+			text="Team Number"></column>
+		<column
+			name="Match_Number"
+			type="Number"
+			text="Match Number"></column>
+		<column
+			name="Event_Name"
+			type="String"
+			text="Event Name"></column>
+		<column
+			name="crossOutW"
+			type="YorN"
+			text="(Auto)Did they cross the out works?"></column>
+		<column
+			name="breachD"
+			type="YorN"
+			text="(Auto)Did they cross the out works?"></column>
+		<column
+			name="didScore"
+			type="YorN"
+			text="(Auto)Did they score?"></column>
+		<column
+			name="reliability"
+			type="YorN"
+			text="(Tele)Are they a reliable scorer?"></column>
+		<column
+			name="Comments"
+			type="String"
+			text="Other Comments"></column>
+	</table>
+
+	<table
+		name="Events">
+		<column
+			name="Event_Name"
+			type="String"
+			text="Event Name"></column>
+		<column
+			name="Date"
+			type="String"
+			text="Date"></column>
+		<column
+			name="Location"
+			type="String"
+			text="Location"></column>
+	</table>
+</config>
