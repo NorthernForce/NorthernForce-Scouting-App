@@ -1,4 +1,4 @@
-#Senior Project Goals
+# Senior Project Goals
 
 1. Make app usable by all member of the robotics teams
 2. Implement image/camera usage so images of robots can be used
