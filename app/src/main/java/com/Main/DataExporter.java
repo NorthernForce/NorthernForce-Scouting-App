@@ -37,8 +37,8 @@ public class DataExporter {
         File newPath = new File(sdDir.getAbsolutePath() + "/ScoutingApp");
         newPath.mkdirs();
         File writePath = new File(newPath, fileName);
-        MySQLiteHelper db = MainActivity.uiDatabaseInterface.getDatabase();
-        Cursor c = db.selectFromTable("*", "*");
+//        MySQLiteHelper db = MainActivity.uiDatabaseInterface.getDatabase();
+//         Cursor c = db.selectFromTable("*", "*");
         try {
             FileOutputStream fOS = new FileOutputStream(writePath);
             fOS.write("this is a test that better work".getBytes());

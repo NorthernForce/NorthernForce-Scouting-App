@@ -1,6 +1,7 @@
 package com.DataView;
 
 import android.database.Cursor;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -54,7 +55,7 @@ public class ViewDataAdapter extends BaseAdapter {
         cursor.moveToPosition(position);
         //i = 1 to skip _id column
         for (int i = 1; i < cursor.getColumnCount(); i++) {
-            //Log.i("ViewDataAdapter", "adding following to text view " + cursor.getColumnName(i) + ": " + cursor.getString(i));
+            Log.i("ViewDataAdapter", "adding following to text view " + cursor.getColumnName(i) + ": " + cursor.getString(i));
             view.setText(view.getText() + "\n" + cursor.getColumnName(i) + ": " + cursor.getString(i));
         }
 

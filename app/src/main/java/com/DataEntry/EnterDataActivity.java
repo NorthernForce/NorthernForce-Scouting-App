@@ -44,7 +44,7 @@ public class EnterDataActivity extends ActionBarActivity implements AdapterView.
 
         Context c = this.getBaseContext();
         for(int i = 0; i < rows.length; i++){
-            dataEntryViews[i] = rows[i].getView(c);
+            dataEntryViews[i] = rows[i].getView(c, this);
         }
         //create the list view to display the data
         this.createListView();
@@ -73,7 +73,7 @@ public class EnterDataActivity extends ActionBarActivity implements AdapterView.
         DataEntryRow rows[] = UIDatabaseInterface.getDataEntryRows();
         Context c = this.getBaseContext();
         for(int i = 0; i < rows.length; i++){
-            dataEntryViews[i] = rows[i].getView(c);
+            dataEntryViews[i] = rows[i].getView(c, this);
         }
 
         //goes through the rows and adds them to the linear layout

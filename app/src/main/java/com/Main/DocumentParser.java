@@ -8,7 +8,7 @@ import org.apache.commons.csv.*;
 
 /**
  * Basic csv parser, can parse csv files
- * @deprecated not used for anything, app no longer takes csv input 
+ * @deprecated not used for anything, app no longer takes csv input
  */
 @Deprecated
 public class DocumentParser {

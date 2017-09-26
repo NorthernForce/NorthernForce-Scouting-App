@@ -1,13 +1,13 @@
 package com.DataEntry;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
-import com.DataEntry.DataEntryRow;
 
 public class YorNDataEntryRow extends DataEntryRow {
     private TextView textView;
@@ -19,9 +19,10 @@ public class YorNDataEntryRow extends DataEntryRow {
         super("YorN", columnName, text);
     }
 
-    public View getView(Context c){
+    public View getView(Context c, Activity a){
         textView = new TextView(c);
         textView.setText(columnName);
+        textView.setTextColor(Color.BLACK);
 
         radioGroup = new RadioGroup(c);
 

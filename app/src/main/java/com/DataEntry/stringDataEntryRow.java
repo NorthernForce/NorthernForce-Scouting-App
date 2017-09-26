@@ -1,12 +1,12 @@
 package com.DataEntry;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.DataEntry.DataEntryRow;
 
 public class stringDataEntryRow extends DataEntryRow {
     private TextView textView;
@@ -16,9 +16,10 @@ public class stringDataEntryRow extends DataEntryRow {
         super("String", columnName, text);
     }
 
-    public View getView(Context c){
+    public View getView(Context c, Activity a){
         textView = new TextView(c);
         textView.setText(this.columnName);
+        textView.setTextColor(Color.BLACK);
 
         editText = new EditText(c);
         editText.setHint(columnName);

@@ -1,5 +1,6 @@
 package com.DataEntry;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 
@@ -18,7 +19,7 @@ public abstract class DataEntryRow {
         this.text = text;
     }
 
-    public abstract View getView(Context c);
+    public abstract View getView(Context c, Activity a);
 
     public abstract String getValue();
 
