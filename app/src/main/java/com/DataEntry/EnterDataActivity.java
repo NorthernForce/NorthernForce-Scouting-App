@@ -1,8 +1,11 @@
 package com.DataEntry;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -20,6 +23,8 @@ import com.Main.UIDatabaseInterface;
 
 import java.util.ArrayList;
 
+import static android.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN;
+
 /**
  * Created by AlexK on 12/22/2015.
  */
@@ -27,19 +32,26 @@ public class EnterDataActivity extends ActionBarActivity implements AdapterView.
 
     private View dataEntryViews[];
 
+    private LinearLayout dataEntryLinearLayout;
+
     private int viewBaseViews;
 
     @Override
+    /**
+     * Gets the current database columsn and sets them up to be displayed on the screen
+     */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.data_entry_layout);
 
-        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.dataEntryLinearLayout);
-        viewBaseViews = linearLayout.getChildCount();
+        //gets the layout to put entry liens on
+        dataEntryLinearLayout = (LinearLayout)findViewById(R.id.dataEntryLinearLayout);
+        viewBaseViews = dataEntryLinearLayout.getChildCount();
 
         UIDatabaseInterface uiDatabaseInterface = MainActivity.uiDatabaseInterface;
 
         DataEntryRow rows[] = UIDatabaseInterface.getDataEntryRows();
+
         dataEntryViews = new View[rows.length];
 
         Context c = this.getBaseContext();
@@ -48,28 +60,17 @@ public class EnterDataActivity extends ActionBarActivity implements AdapterView.
         }
         //create the list view to display the data
         this.createListView();
-
-        //tables for the spinner
-        //ArrayList<String> tables = UIDatabaseInterface.getTableNames();
-        ArrayList<String> tables = new ArrayList<>();
-        tables.add("Performance");
-
-        tables.remove("android_metadata");
-
-        Spinner tableSpinner = (Spinner) (findViewById(R.id.dataEntryTableSpinner));
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,  android.R.layout.simple_spinner_item, tables);
-        tableSpinner.setAdapter(spinnerAdapter);
-        tableSpinner.setOnItemSelectedListener(this);
-
     }
 
     //create the list view
+
+    /**
+     * Uses the list of dataEntry rows and appends each of them into the layout based on the format that they are in
+     */
     private void createListView(){
+        dataEntryLinearLayout = (LinearLayout)findViewById(R.id.dataEntryLinearLayout);
 
-        LinearLayout linearLayout = (LinearLayout)findViewById(R.id.dataEntryLinearLayout);
-        int currentChildCount = linearLayout.getChildCount();
-        linearLayout.removeViewsInLayout(viewBaseViews, currentChildCount - viewBaseViews);
-
+        dataEntryLinearLayout.removeViews(0, dataEntryLinearLayout.getChildCount() - 1); //leave submit button
         DataEntryRow rows[] = UIDatabaseInterface.getDataEntryRows();
         Context c = this.getBaseContext();
         for(int i = 0; i < rows.length; i++){
@@ -77,17 +78,40 @@ public class EnterDataActivity extends ActionBarActivity implements AdapterView.
         }
 
         //goes through the rows and adds them to the linear layout
+        int counter = 0;
         for(View view : dataEntryViews){
-            linearLayout.addView(view);
+            dataEntryLinearLayout.addView(view, counter);
+            counter++;
             Log.v("EnterDataActivity", "added a row to the linear layout");
 
         }
         //when the submit button is pressed 
         Button submitButton = (Button) findViewById(R.id.submitButton);
+        if(submitButton == null){
+            Log.e("EnterDataActivity", "submit button was null");
+        }
+        final EnterDataActivity e = this;
         submitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                final View newV = v;
                 Log.v("EnterDataActivity", "Submit was pressed");
-                UIDatabaseInterface.submitDataEntry(v);
+                AlertDialog.Builder builder = new AlertDialog.Builder(e);
+                builder.setMessage("Are you sure you want to submit?")
+                        .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // FIRE ZE MISSILES!
+                                Log.v("missiles", "missiles fired");
+                                UIDatabaseInterface.submitDataEntry(newV);
+                                e.createListView();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                                Log.v("missiles", "missiles canceled");
+                            }
+                        });
+                builder.show();
             }
         });
     }

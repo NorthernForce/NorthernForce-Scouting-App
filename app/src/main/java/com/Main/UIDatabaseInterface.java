@@ -122,6 +122,10 @@ public class UIDatabaseInterface {
     }
 
 
+    /**
+     * Goes through the data obtained for
+     * @param tables
+     */
     public static void createDataEntryRows(ArrayList<DatabaseTable> tables) {
         Cursor performance = database.selectFromTable(currentDataEntryTable, "*");
         int columnCount = performance.getColumnCount();
@@ -133,7 +137,7 @@ public class UIDatabaseInterface {
         dataEntryRows = new DataEntryRow[columnCount - 1];
 
         ArrayList<ConfigEntry> columns = null;
-        Log.v("AHHH", "current data entry table " + currentDataEntryTable);
+        Log.v("UIDatabase", "current data entry table " + currentDataEntryTable);
         Log.v("UIDatabase", "column count is " + columnCount);
         for(DatabaseTable table : tables){
             if(table.getName().equals((currentDataEntryTable))){
@@ -179,7 +183,7 @@ public class UIDatabaseInterface {
         for (DataEntryRow row : dataEntryRows) {
             String value = row.getValue();
             Log.v("UIDatabase", "submit value is " + value);
-            values.put(row.getColumnName(), value);
+            values.put(row.getColumnName(), value); //this works because the display is in the same order as the database
         }
         database.addValues(currentDataEntryTable, values);
 

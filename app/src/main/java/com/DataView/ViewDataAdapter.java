@@ -7,8 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.DataEntry.DataEntryRow;
 import com.Main.MySQLiteHelper;
 import com.Main.UIDatabaseInterface;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by alex on 8/11/15.
@@ -51,12 +55,14 @@ public class ViewDataAdapter extends BaseAdapter {
         TextView view = new TextView(viewDataActivity);
         view.setText("");
 
+        DataEntryRow[] rows = UIDatabaseInterface.getDataEntryRows();
+
         Cursor cursor = mySQLiteHelper.selectFromTable(currentTable, "*");
         cursor.moveToPosition(position);
         //i = 1 to skip _id column
         for (int i = 1; i < cursor.getColumnCount(); i++) {
-            Log.i("ViewDataAdapter", "adding following to text view " + cursor.getColumnName(i) + ": " + cursor.getString(i));
-            view.setText(view.getText() + "\n" + cursor.getColumnName(i) + ": " + cursor.getString(i));
+            Log.i("ViewDataAdapter", "adding following to text view " + rows[i - 1].getText() + ": " + cursor.getString(i));
+            view.setText(view.getText() + "\n" +/* cursor.getColumnName(i)*/ rows[i - 1].getText() + ": " + cursor.getString(i));
         }
 
         return view;

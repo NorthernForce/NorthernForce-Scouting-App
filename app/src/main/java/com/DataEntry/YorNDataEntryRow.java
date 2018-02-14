@@ -2,12 +2,26 @@ package com.DataEntry;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.example.alex.Main.R;
+
+import java.util.ArrayList;
 
 public class YorNDataEntryRow extends DataEntryRow {
     private TextView textView;
@@ -20,24 +34,18 @@ public class YorNDataEntryRow extends DataEntryRow {
     }
 
     public View getView(Context c, Activity a){
-        textView = new TextView(c);
-        textView.setText(columnName);
-        textView.setTextColor(Color.BLACK);
 
-        radioGroup = new RadioGroup(c);
+        final LayoutInflater factory = a.getLayoutInflater();
 
-        yesButton = new RadioButton(c);
-        noButton = new RadioButton(c);
+        final View rootView = factory.inflate(R.layout.de_yes_or_no, null);
 
-        radioGroup.addView(yesButton);
-        radioGroup.addView(noButton);
+        textView = (TextView) rootView.findViewById(R.id.de_YorN_TextView);
+        yesButton = (RadioButton) rootView.findViewById(R.id.de_YorN_yesButton);
+        noButton = (RadioButton) rootView.findViewById(R.id.de_YorN_noButton);
 
+        textView.setText(this.text);
 
-        LinearLayout view = new LinearLayout(c);
-        view.addView(this.textView);
-        view.addView(this.radioGroup);
-
-        return view;
+        return rootView;
     }
 
     public String getValue(){

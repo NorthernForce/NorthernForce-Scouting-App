@@ -4,15 +4,15 @@
 		<column
 			name="Team_Number"
 			type="int"
-			text="Team Number"></column>
+			text="Team Number"/>
 		<column
 			name="Team_Name"
 			type="String"
-			text="Team Name"></column>
+			text="Team Name"/>
 		<column
 			name="High_School"
 			type="String"
-			text="High School"></column>
+			text="High School"/>
 
 	</table>
 
@@ -21,39 +21,39 @@
 		<column
 			name="Team_Number"
 			type="int"
-			text="Team Number"></column>
+			text="Team Number"/>
 		<column
 			name="Match_Number"
 			type="int"
-			text="Match Number"></column>
+			text="Match Number"/>
 		<column
 			name="Event_Name"
 			type="String"
-			text="Event Name"></column>
+			text="Event Name"/>
 		<column
 			name="Red_One"
 			type="int"
-			text="Red One"></column>
+			text="Red One"/>
 		<column
 			name="Red_Two"
 			type="int"
-			text="Red Two"></column>
+			text="Red Two"/>
 		<column
 			name="Red_Three"
 			type="int"
-			text="Red Three"></column>
+			text="Red Three"/>
 		<column
 			name="Blue_One"
 			type="int"
-			text="Blue One"></column>
+			text="Blue One"/>
 		<column
 			name="Blue_Two"
 			type="int"
-			text="Blue Two"></column>
+			text="Blue Two"/>
 		<column
 			name="Blue_Three"
 			type="int"
-			text="Blue Three"></column>
+			text="Blue Three"/>
 	</table>
 
 	<table
@@ -61,35 +61,95 @@
 		<column
 			name="Team_Number"
 			type="Number"
-			text="Team Number"></column>
+			text="Team Number"/>
 		<column
 			name="Match_Number"
 			type="Number"
-			text="Match Number"></column>
+			text="Match Number"/>
 		<column
 			name="Event_Name"
 			type="String"
-			text="Event Name"></column>
+			text="Event Name"/>
 		<column
 			name="crossOutW"
 			type="YorN"
-			text="(Auto)Did they cross the out works?"></column>
+			text="(Auto)Did they cross the out works?"/>
 		<column
 			name="breachD"
 			type="YorN"
-			text="(Auto)Did they cross the out works?"></column>
+			text="(Auto)Did they cross the out works?"/>
 		<column
 			name="didScore"
 			type="YorN"
-			text="(Auto)Did they score?"></column>
+			text="(Auto)Did they score?"/>
 		<column
 			name="reliability"
 			type="YorN"
-			text="(Tele)Are they a reliable scorer?"></column>
+			text="(Tele)Are they a reliable scorer?"/>
 		<column
 			name="Comments"
 			type="String"
-			text="Other Comments"></column>
+			text="Other Comments"/>
+		<column
+			name="Comments1"
+			type="String"
+			text="Other Comments"/>
+		<column
+			name="Comments2"
+			type="String"
+			text="Other Comments"/>
+		<column
+			name="Comments3"
+			type="String"
+			text="Other Comments"/>
+		<column
+			name="Comments4"
+			type="String"
+			text="Other Comments"/>
+		<column
+			name="Comments5"
+			type="String"
+			text="Other Comments"/>
+		<column
+			name="Comments6"
+			type="String"
+			text="Other Comments"/>
+		<column
+			name="Comments7"
+			type="String"
+			text="Other Comments"/>
+		<column
+			name="Comments8"
+			type="String"
+			text="Other Comments"/>
+		<column
+			name="Comments9"
+			type="String"
+			text="Other Comments"/>
+		<column
+			name="Comments10"
+			type="String"
+			text="Other Comments"/>
+		<column
+			name="Comments11"
+			type="String"
+			text="Other Comments"/>
+		<column
+			name="Comments12"
+			type="String"
+			text="Other Comments"/>
+		<column
+			name="Comments13"
+			type="String"
+			text="Other Comments"/>
+		<column
+			name="Comments14"
+			type="String"
+			text="Other Comments"/>
+		<column
+			name="Comments15"
+			type="String"
+			text="Other Comments"/>
 	</table>
 
 	<table
@@ -97,14 +157,14 @@
 		<column
 			name="Event_Name"
 			type="String"
-			text="Event Name"></column>
+			text="Event Name"/>
 		<column
 			name="Date"
 			type="String"
-			text="Date"></column>
+			text="Date"/>
 		<column
 			name="Location"
 			type="String"
-			text="Location"></column>
+			text="Location"/>
 	</table>
 </config>

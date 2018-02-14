@@ -21,6 +21,12 @@ public class numberDataEntryRow extends DataEntryRow {
         super("Number", columnName, text);
     }
 
+    /**
+     *
+     * @param c
+     * @param a the activity used to get the layout inflater
+     * @return A created view to be added to the data entry screen
+     */
     public View getView(Context c, Activity a){
         Log.v("numberDataEntryRow", "getView was called");
 
@@ -28,28 +34,14 @@ public class numberDataEntryRow extends DataEntryRow {
 
         final View rootView = factory.inflate(R.layout.de_number, null);
 
-        LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.de_number_LinearLayout);
-        int count = linearLayout.getChildCount();
-        for(int i = 0; i < count; i++){
-            Log.v("numberDataEntryRow", "i is: " + i);
-            View childView = linearLayout.getChildAt(i);
-            Log.v("numberDataEntryRow", "childView is " + childView.toString());
-            //Log.v("numberDataEntryRow", "linear layout child number " + count + " is " + linearLayout.getChildAt(count).getId());
-        }
-        textView = (TextView) linearLayout.getChildAt(0);
-        textView.setText(columnName);
-        //textView.setTextColor(Color.BLACK);
+        textView = (TextView) rootView.findViewById(R.id.de_number_TextView);
+        textView.setText(this.text);
 
-        editText = (EditText) linearLayout.getChildAt(1);
+        editText = (EditText) rootView.findViewById(R.id.de_number_EditText);
         editText.setHint(columnName);
         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-        //LinearLayout view = new LinearLayout(c);
-
-        //view.addView(this.textView);
-        //view.addView(this.editText);
-
-        return linearLayout;
+        return rootView;
     }
 
     public String getValue(){

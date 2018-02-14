@@ -3,10 +3,14 @@ package com.DataEntry;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.alex.Main.R;
 
 public class stringDataEntryRow extends DataEntryRow {
     private TextView textView;
@@ -17,18 +21,17 @@ public class stringDataEntryRow extends DataEntryRow {
     }
 
     public View getView(Context c, Activity a){
-        textView = new TextView(c);
-        textView.setText(this.columnName);
-        textView.setTextColor(Color.BLACK);
+        final LayoutInflater factory = a.getLayoutInflater();
 
-        editText = new EditText(c);
+        final View rootView = factory.inflate(R.layout.de_string, null);
+
+        textView = (TextView) rootView.findViewById(R.id.de_string_TextView);
+        textView.setText(this.text);
+
+        editText = (EditText) rootView.findViewById(R.id.de_string_EditText);
         editText.setHint(columnName);
 
-        LinearLayout view = new LinearLayout(c);
-        view.addView(this.textView);
-        view.addView(this.editText);
-
-        return view;
+        return rootView;
     }
 
     public String getValue(){

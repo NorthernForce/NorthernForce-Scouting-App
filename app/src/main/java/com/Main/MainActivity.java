@@ -6,8 +6,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -22,12 +25,9 @@ import com.DataEntry.EnterDataActivity;
 import com.DataView.ViewDataActivity;
 import com.Bluetooth.Aggro;
 import com.example.alex.Main.R;
+import com.easyphotopicker.*;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOError;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.UUID;
 
 /**
@@ -35,11 +35,14 @@ import java.util.UUID;
  */
 public class MainActivity extends ActionBarActivity {
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
     public static UIDatabaseInterface uiDatabaseInterface;
     private Context baseContext;
     private MainActivity jo = this;
     private BluetoothAdapter bl;
-    private DataExporter dataExporter;
+    private String mCurrentPhotoPath;
+
 
     private UUID uuid = UUID.fromString("e720951a-a29e-4772-b32e-7c60264d5c9b");
 
@@ -78,13 +81,19 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         uiDatabaseInterface = new UIDatabaseInterface(this.getBaseContext());
-        this.dataExporter = new DataExporter();
 
         this.runTests();
 
         setContentView(R.layout.activity_main);
 
         this.baseContext = this.getBaseContext();
+
+
+        EasyImage.configuration(this)
+                .setImagesFolderName("ScoutingPics")
+                .setCopyTakenPhotosToPublicGalleryAppFolder(true)
+                .setCopyPickedImagesToPublicGalleryAppFolder(true)
+                .setAllowMultiplePickInGallery(true);
 
 
         Button enterData = (Button) (findViewById(R.id.titleScreenEnterData));
@@ -124,14 +133,23 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        Button export = (Button) (findViewById(R.id.exportData));
-        bluetooth.setOnClickListener(new View.OnClickListener() {
+        Button export = (Button) (findViewById(R.id.titleScreenExportData));
+        export.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dataExporter.exportData("database");
+                new DataExporter().execute();
             }
         });
-        dataExporter.exportData("database");
+
+        Button camera = (Button) (findViewById(R.id.titleScreenCamera));
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EasyImage.openCamera(MainActivity.this, 0);
+
+            }
+        });
+
         /*String oh = (new BlueConnect().run(this, uuid, this));
         if(!oh.equals("master")) {
             IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
