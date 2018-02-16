@@ -5,9 +5,12 @@ Android App to be used for scouting.
 + Data entry as well as viewing data
 + Bluetooth syncing to a master device
 + To change the data that is entered you just have to change the config file
++ Can transfer files to a computer over usb (requires a seperate program)
 
-
+## Config File
 config file located in assets folder
+The questions are located in the performance table, the types of questiosn are string (asks the question and lets a the user type in answer) , number (asks the question and let the user type in a number), and YorN (ask the user the question and lets them choose yes or no)
+When updating the config file make sure to clear the app's cache on the devices.
 
 Class Structure:
 MainActivity give the user buttons to enter data, view data, or use bluetooth to sync

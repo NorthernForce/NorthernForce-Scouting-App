@@ -71,85 +71,41 @@
 			type="String"
 			text="Event Name"/>
 		<column
-			name="crossOutW"
+			name="crossAutoLine"
 			type="YorN"
-			text="(Auto)Did they cross the out works?"/>
+			text="(Auto)Can the robot cross the auto line?"/>
 		<column
-			name="breachD"
+			name="scoreSwitch"
 			type="YorN"
-			text="(Auto)Did they cross the out works?"/>
+			text="(Auto)Can it score on our switch?"/>
 		<column
-			name="didScore"
+			name="scoreScale"
 			type="YorN"
-			text="(Auto)Did they score?"/>
+			text="(Auto)Can it score on a scale?"/>
 		<column
-			name="reliability"
+			name="fouls"
 			type="YorN"
-			text="(Tele)Are they a reliable scorer?"/>
+			text="(Auto)Did they cause any fouls?"/>
 		<column
-			name="Comments"
-			type="String"
-			text="Other Comments"/>
+			name="canSupport"
+			type="YorN"
+			text="(Tele-Op) Can the robot support other robots during climbing?"/>
 		<column
-			name="Comments1"
-			type="String"
-			text="Other Comments"/>
+			name="numCubes"
+			type="Number"
+			text="(Tele-Op)How many cubes did the robot pick up?"/>
 		<column
-			name="Comments2"
-			type="String"
-			text="Other Comments"/>
+			name="numPoints"
+			type="Number"
+			text="(Tele-Op) How many points did the robot score?"/>
 		<column
-			name="Comments3"
-			type="String"
-			text="Other Comments"/>
+			name="canClimb"
+			type="YorN"
+			text="(Tele-Op) Can the robot climb?"/>
 		<column
-			name="Comments4"
-			type="String"
-			text="Other Comments"/>
-		<column
-			name="Comments5"
-			type="String"
-			text="Other Comments"/>
-		<column
-			name="Comments6"
-			type="String"
-			text="Other Comments"/>
-		<column
-			name="Comments7"
-			type="String"
-			text="Other Comments"/>
-		<column
-			name="Comments8"
-			type="String"
-			text="Other Comments"/>
-		<column
-			name="Comments9"
-			type="String"
-			text="Other Comments"/>
-		<column
-			name="Comments10"
-			type="String"
-			text="Other Comments"/>
-		<column
-			name="Comments11"
-			type="String"
-			text="Other Comments"/>
-		<column
-			name="Comments12"
-			type="String"
-			text="Other Comments"/>
-		<column
-			name="Comments13"
-			type="String"
-			text="Other Comments"/>
-		<column
-			name="Comments14"
-			type="String"
-			text="Other Comments"/>
-		<column
-			name="Comments15"
-			type="String"
-			text="Other Comments"/>
+			name="canPickCubes"
+			type="YorN"
+			text="(Tele-Op) Can the robot pick up cubes?"/>
 	</table>
 
 	<table
