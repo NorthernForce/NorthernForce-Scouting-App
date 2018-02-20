@@ -106,6 +106,10 @@
 			name="canPickCubes"
 			type="YorN"
 			text="(Tele-Op) Can the robot pick up cubes?"/>
+		<column
+			name="driver"
+			type="String"
+			text="(Tele-Op) How did the driver drive?"/>
 	</table>
 
 	<table
