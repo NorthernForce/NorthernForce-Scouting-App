@@ -141,6 +141,8 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+        EasyImage.configuration(this)
+                .setImagesFolderName("Pictures");
         Button camera = (Button) (findViewById(R.id.titleScreenCamera));
         camera.setOnClickListener(new View.OnClickListener() {
             @Override

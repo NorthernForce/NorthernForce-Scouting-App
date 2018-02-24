@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:id="@+id/de_yes_or_no_LinearLayout">
+    app:flexWrap="wrap"
+    android:id="@+id/de_yes_or_no_FlexLayout">
 
     <!-- needs to remain with this ID so that the program can find it-->
     <TextView
@@ -32,4 +33,4 @@
             android:theme="@style/MyRadioButton"
             android:id="@+id/de_YorN_noButton"/>
     </RadioGroup>
-</LinearLayout>
+</com.google.android.flexbox.FlexboxLayout>
