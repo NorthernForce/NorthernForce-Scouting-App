@@ -42,10 +42,16 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void deleteDatabase(){
+        for(String tableName : this.getTableNames()) {
+            this.dropTable(tableName);
+        }
+    }
+
     /** Uses the sqlite master table to return a list of table names
      * @return An ArrayList of all table names */
     public ArrayList<String> getTableNames(){
-        ArrayList<String> tableList = new ArrayList<String>();
+        ArrayList<String> tableList = new ArrayList<>();
 
         Cursor tables = this.rawQuery("SELECT name FROM sqlite_master WHERE type='table'");
         if(tables.moveToFirst()){

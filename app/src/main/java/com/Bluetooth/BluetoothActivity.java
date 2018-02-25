@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.alex.Main.R;
+import com.Main.R;
 
 import java.util.UUID;
 

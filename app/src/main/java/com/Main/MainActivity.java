@@ -5,12 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -19,15 +14,13 @@ import android.view.View;
 import android.widget.Button;
 
 
-import com.Bluetooth.BlueConnect;
 import com.Bluetooth.BluetoothActivity;
 import com.DataEntry.EnterDataActivity;
 import com.DataView.ViewDataActivity;
 import com.Bluetooth.Aggro;
-import com.example.alex.Main.R;
+import com.Settings.SettingsActivity;
 import com.easyphotopicker.*;
 
-import java.io.File;
 import java.util.UUID;
 
 /**
@@ -35,13 +28,10 @@ import java.util.UUID;
  */
 public class MainActivity extends ActionBarActivity {
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     public static UIDatabaseInterface uiDatabaseInterface;
     private Context baseContext;
-    private MainActivity jo = this;
     private BluetoothAdapter bl;
-    private String mCurrentPhotoPath;
 
 
     private UUID uuid = UUID.fromString("e720951a-a29e-4772-b32e-7c60264d5c9b");
@@ -81,8 +71,6 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         uiDatabaseInterface = new UIDatabaseInterface(this.getBaseContext());
-
-        this.runTests();
 
         setContentView(R.layout.activity_main);
 
@@ -151,21 +139,6 @@ public class MainActivity extends ActionBarActivity {
 
             }
         });
-
-        /*String oh = (new BlueConnect().run(this, uuid, this));
-        if(!oh.equals("master")) {
-            IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-            registerReceiver(mReceiver, filter);
-            bl = BluetoothAdapter.getDefaultAdapter();
-
-            bl.startDiscovery();
-        }
-        else {
-            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 0);
-            startActivity(discoverableIntent);
-        }*/
-
     }
 
 
@@ -185,11 +158,19 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Context context = this.getBaseContext();
+            Intent i = new Intent(context, SettingsActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            context.startActivity(i);
         }
 
         if (id == R.id.action_enterData){
+            Context context = this.getBaseContext();
+            Intent i = new Intent(context, EnterDataActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+            context.startActivity(i);
         }
 
         if (id == R.id.action_viewData){
@@ -202,21 +183,4 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    private void runTests(){
-        Tests test = new Tests();
-        test.testDocumentParserGetLengthReturnsCorrect();
-        test.testDocumentParserGetValueReturnsCorrect();
-        test.testSQLite(this.getBaseContext());
-        test.testConfigParser(this.getBaseContext());
-    }
-
-    /**
-     *
-     * @return The singleton uiDatabaseInterface
-     */
-    public UIDatabaseInterface getUiDatabaseInterface(){
-        return uiDatabaseInterface;
-    }
-
 }

@@ -2,16 +2,14 @@ package com.DataEntry;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.alex.Main.R;
+import com.Main.R;
 
 public class numberDataEntryRow extends DataEntryRow {
     private TextView textView;

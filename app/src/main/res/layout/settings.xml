@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    tools:context="com.Settings.SettingsActivity"
+    android:orientation="vertical"
+    android:id = "@+id/settings">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="24dp"
+        android:id = "@+id/title"
+        android:textSize="24sp"
+        android:text="Settings"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="24sp"
+        android:id = "@+id/settings_resetdatabase"
+        android:layout_below="@+id/title"
+        android:textSize="24dp"
+        android:text = "Reset Database"/>
+
+</RelativeLayout>

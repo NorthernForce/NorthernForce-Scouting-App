@@ -308,10 +308,7 @@ public class EasyImage implements Constants {
     }
 
     public static boolean willHandleActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RequestCodes.SOURCE_CHOOSER || requestCode == RequestCodes.PICK_PICTURE_FROM_GALLERY || requestCode == RequestCodes.TAKE_PICTURE || requestCode == RequestCodes.PICK_PICTURE_FROM_DOCUMENTS) {
-            return true;
-        }
-        return false;
+        return requestCode == RequestCodes.SOURCE_CHOOSER || requestCode == RequestCodes.PICK_PICTURE_FROM_GALLERY || requestCode == RequestCodes.TAKE_PICTURE || requestCode == RequestCodes.PICK_PICTURE_FROM_DOCUMENTS;
     }
 
     private static Intent plainGalleryPickerIntent() {

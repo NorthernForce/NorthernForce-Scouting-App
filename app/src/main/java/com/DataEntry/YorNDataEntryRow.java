@@ -2,30 +2,16 @@ package com.DataEntry;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.Paint;
-import android.graphics.PixelFormat;
-import android.graphics.drawable.Drawable;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.alex.Main.R;
-
-import java.util.ArrayList;
+import com.Main.R;
 
 public class YorNDataEntryRow extends DataEntryRow {
     private TextView textView;
-    private RadioGroup radioGroup;
     private RadioButton yesButton;
     private RadioButton noButton;
 

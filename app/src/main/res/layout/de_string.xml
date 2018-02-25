@@ -10,13 +10,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Test question"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:id="@+id/de_string_TextView"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:minWidth="20pt"
         android:hint=""
         android:id="@+id/de_string_EditText"/>

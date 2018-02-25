@@ -12,7 +12,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="24dp"
         android:id = "@+id/title"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:text="Team 172 Scouting App"/>
 
     <Button
@@ -22,7 +22,7 @@
         android:layout_margin="24dp"
         android:id = "@+id/titleScreenEnterData"
         android:layout_below="@+id/title"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:text = "Enter Data"/>
 
     <Button
@@ -32,7 +32,7 @@
         android:layout_margin="24dp"
         android:id = "@+id/titleScreenViewData"
         android:layout_below="@+id/titleScreenEnterData"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:text = "View Data"/>
 
     <Button
@@ -42,25 +42,25 @@
         android:layout_margin="24dp"
         android:id = "@+id/titleScreenBluetooth"
         android:layout_below="@+id/titleScreenViewData"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:text = "Bluetooth"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_margin="24dp"
+        android:layout_margin="24sp"
         android:id = "@+id/titleScreenExportData"
         android:layout_below="@+id/titleScreenBluetooth"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:text = "Export Data"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_margin="24dp"
+        android:layout_margin="24sp"
         android:id = "@+id/titleScreenCamera"
         android:layout_below="@+id/titleScreenExportData"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:text = "Camera"/>
 
 

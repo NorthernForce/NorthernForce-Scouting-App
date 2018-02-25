@@ -15,7 +15,7 @@ import android.widget.Spinner;
 import com.Main.MainActivity;
 import com.Main.MySQLiteHelper;
 import com.Main.UIDatabaseInterface;
-import com.example.alex.Main.R;
+import com.Main.R;
 
 import java.util.ArrayList;
 

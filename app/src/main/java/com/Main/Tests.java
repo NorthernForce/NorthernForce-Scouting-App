@@ -83,7 +83,7 @@ public class Tests {
 
     }
 
-    public void testConfigParser(Context context){
+    /*public void testConfigParser(Context context){
         ConfigParser configParser = new ConfigParser();
         AssetManager am = context.getAssets();
 
@@ -109,5 +109,5 @@ public class Tests {
         }
 
 
-    }
+    }*/
 }

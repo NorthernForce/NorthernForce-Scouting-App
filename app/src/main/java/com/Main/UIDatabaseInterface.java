@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.Confg.ConfigEntry;
 import com.Confg.ConfigParser;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
  */
 public class UIDatabaseInterface {
 
+    private static String TAG = "UIDatabaseInterface";
     private static DatabaseTable teamTable;
     private static DatabaseTable matchTable;
 
@@ -48,11 +50,11 @@ public class UIDatabaseInterface {
         try {
             InputStream is = am.open("configFile_new.xml");
             Log.v("UIDI", is.toString());
-            tables = (ArrayList<DatabaseTable>)configParser.parse(is);
+            tables = configParser.parse(is);
 
             Log.v("UIDI", "the number of tables if " + tables.size());
             for(DatabaseTable table : tables){
-                Log.v("UIDatabaseInterface", "Found table " + table.getName() + " to make");
+                Log.v(TAG, "Found table " + table.getName() + " to make");
 
                 if(!database.doesTableExists(table.getName())) {
                     database.createTable(table);
@@ -78,14 +80,45 @@ public class UIDatabaseInterface {
         //this.populateDatabase();
     }
 
+    public static void resetDatabase(Context context){
+        database = new MySQLiteHelper(context);
+
+        database.deleteDatabase();
+        database.onUpgrade(database.getWritableDatabase(), 0, 1);
+
+        ConfigParser configParser = new ConfigParser();
+        AssetManager am = context.getAssets();
+        try {
+            InputStream is = am.open("configFile_new.xml");
+            Log.v("UIDI", is.toString());
+            tables = configParser.parse(is);
+
+            Log.v("UIDI", "the number of tables if " + tables.size());
+            for(DatabaseTable table : tables){
+                Log.v(TAG, "Found table " + table.getName() + " to make");
+
+                if(!database.doesTableExists(table.getName())) {
+                    database.createTable(table);
+                }
+            }
+        } catch (XmlPullParserException e) {
+            Log.e("UIDatabaseInterface", "XmlPullParserException");
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("UIDatabaseInterface", "IOException");
+        }
+
+        createDataEntryRows(tables);
+    }
     private static void listTables(){
         for(String tableName : getTableNames()){
-            Log.v("UIdatabase", "one table is " + tableName);
+            Log.v(TAG, "one table is " + tableName);
         }
     }
 
     public static ArrayList<String> getTableNames(){
-        ArrayList<String> tableList = new ArrayList<String>();
+        ArrayList<String> tableList = new ArrayList<>();
 
         Cursor tables = database.rawQuery("SELECT name FROM sqlite_master WHERE type='table'");
         if(tables.moveToFirst()){
@@ -102,10 +135,10 @@ public class UIDatabaseInterface {
         String columns[] = c.getColumnNames();
 
         int columnCount = c.getColumnCount();
-        Log.v("UIdatabase", "Matches column count is " + columnCount);
+        Log.v(TAG, "Matches column count is " + columnCount);
 
         for(String columnName : columns){
-            Log.v("UIdatabase", "COLUMN IN MATCHES : " + columnName);
+            Log.v(TAG, "COLUMN IN MATCHES : " + columnName);
         }
     }
 
@@ -114,10 +147,10 @@ public class UIDatabaseInterface {
         String columns[] = c.getColumnNames();
 
         int columnCount = c.getColumnCount();
-        Log.v("UIdatabase", "Performance column count is " + columnCount);
+        Log.v(TAG, "Performance column count is " + columnCount);
 
         for(String columnName : columns){
-            Log.v("UIdatabase", "COLUMN IN Performance : " + columnName);
+            Log.v(TAG, "COLUMN IN Performance : " + columnName);
         }
     }
 
@@ -137,15 +170,15 @@ public class UIDatabaseInterface {
         dataEntryRows = new DataEntryRow[columnCount - 1];
 
         ArrayList<ConfigEntry> columns = null;
-        Log.v("UIDatabase", "current data entry table " + currentDataEntryTable);
-        Log.v("UIDatabase", "column count is " + columnCount);
+        Log.v(TAG, "current data entry table " + currentDataEntryTable);
+        Log.v(TAG, "column count is " + columnCount);
         for(DatabaseTable table : tables){
             if(table.getName().equals((currentDataEntryTable))){
                 columns = table.getColumns();
             }
         }
 
-        Log.v("UIDatabase", "There are " + columns.size() + " columns");
+        Log.v(TAG, "There are " + columns.size() + " columns");
 
         int counter = 0;
         for(ConfigEntry entry : columns){
@@ -154,22 +187,18 @@ public class UIDatabaseInterface {
             String text = entry.getText();
 
             DataEntryRow row;
-            if(type.equals("String")){
-                row = new stringDataEntryRow(columnName, text);
-                Log.v("UIDatabase", "added a new for String");
+
+            switch (type) {
+                case "String": row = new stringDataEntryRow(columnName, text);
+                    break;
+                case "Number": row = new numberDataEntryRow(columnName, text);
+                    break;
+                case "YorN": row = new YorNDataEntryRow(columnName, text);
+                    break;
+                default: row = null;
+                    break;
             }
-            else if(type.equals("Number")){
-                row = new numberDataEntryRow(columnName, text);
-                Log.v("UIDatabase", "added a new for number");
-            }
-            else if(type.equals("YorN")){
-                row = new YorNDataEntryRow(columnName, text);
-                Log.v("UIDatabase", "added a new for YorN");
-            }
-            else{
-                row = null;
-                Log.v("UIDatabase", "column was null with type " + type);
-            }
+
             dataEntryRows[counter] = row;
 
             counter++;
@@ -182,7 +211,7 @@ public class UIDatabaseInterface {
 
         for (DataEntryRow row : dataEntryRows) {
             String value = row.getValue();
-            Log.v("UIDatabase", "submit value is " + value);
+            Log.v(TAG, "submit value is " + value);
             values.put(row.getColumnName(), value); //this works because the display is in the same order as the database
         }
         database.addValues(currentDataEntryTable, values);
@@ -202,7 +231,7 @@ public class UIDatabaseInterface {
 
             database.addValues(matchTable.getName(), values);
 
-            Log.v("UIdatabase", "populated " + matchTable.getName() + " and size is: " + database.countRowsInTable("Teams"));
+            Log.v(TAG, "populated " + matchTable.getName() + " and size is: " + database.countRowsInTable("Teams"));
         }
         updateTeamTable();
     }
@@ -211,16 +240,16 @@ public class UIDatabaseInterface {
         Cursor teams;
         teams = getTeamsNotInTeamTable();
 
-        Log.v("foo", "teams not in team table length is " + teams.getCount());
+        Log.v(TAG, "teams not in team table length is " + teams.getCount());
         if(teams.moveToFirst()){
             do{
-                Log.v("foo", "added team number " + teams.getString(0));
+                Log.v(TAG, "added team number " + teams.getString(0));
                 ContentValues values = new ContentValues();
                 values.put("Team_Number", teams.getString(0));
-                database.addValues(teamTable.getName(), values);
+                database.addValues("Teams", values);
             }while(teams.moveToNext());
         }
-        averageScoreForTeams();
+        //averageScoreForTeams();
     }
 
     public static Cursor getAllTeams(){
@@ -251,7 +280,7 @@ public class UIDatabaseInterface {
         ArrayList<DatabaseTable> tables = UIDatabaseInterface.tables;
         for(DatabaseTable table : tables){
             Cursor tableCursor = database.selectFromTable(table.getName(), "*");
-            Log.v("UIDatabaseInterface", "the number of columns in table " + table.getName() + " is " + tableCursor.getColumnCount());
+            Log.v(TAG, "the number of columns in table " + table.getName() + " is " + tableCursor.getColumnCount());
             if(tableCursor.getColumnCount() == 0){
                 break;
             }
@@ -291,7 +320,8 @@ public class UIDatabaseInterface {
     }
 
     private static Cursor getTeamsNotInTeamTable(){
-        Cursor teams = database.selectFromTableExcept("Team_Number", "Matches", "SELECT Team_Number FROM Teams");
+        Cursor teams = database.selectFromTableExcept("Team_Number", "Performance", "SELECT Team_Number FROM Teams");
+        Log.v(TAG, "teams not in team table: " + teams.getCount());
         return teams;
     }
 

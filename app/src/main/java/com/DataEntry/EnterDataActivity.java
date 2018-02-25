@@ -5,25 +5,19 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 
 import com.Main.MainActivity;
-import com.example.alex.Main.R;
+import com.Main.R;
 import com.Main.UIDatabaseInterface;
 
-import java.util.ArrayList;
-
-import static android.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN;
 
 /**
  * Created by AlexK on 12/22/2015.
@@ -32,10 +26,6 @@ public class EnterDataActivity extends ActionBarActivity implements AdapterView.
 
     private View dataEntryViews[];
 
-    private LinearLayout dataEntryLinearLayout;
-
-    private int viewBaseViews;
-
     @Override
     /**
      * Gets the current database columsn and sets them up to be displayed on the screen
@@ -43,12 +33,6 @@ public class EnterDataActivity extends ActionBarActivity implements AdapterView.
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.data_entry_layout);
-
-        //gets the layout to put entry liens on
-        dataEntryLinearLayout = (LinearLayout)findViewById(R.id.dataEntryLinearLayout);
-        viewBaseViews = dataEntryLinearLayout.getChildCount();
-
-        UIDatabaseInterface uiDatabaseInterface = MainActivity.uiDatabaseInterface;
 
         DataEntryRow rows[] = UIDatabaseInterface.getDataEntryRows();
 
@@ -68,7 +52,7 @@ public class EnterDataActivity extends ActionBarActivity implements AdapterView.
      * Uses the list of dataEntry rows and appends each of them into the layout based on the format that they are in
      */
     private void createListView(){
-        dataEntryLinearLayout = (LinearLayout)findViewById(R.id.dataEntryLinearLayout);
+        LinearLayout dataEntryLinearLayout = (LinearLayout)findViewById(R.id.dataEntryLinearLayout);
 
         dataEntryLinearLayout.removeViews(0, dataEntryLinearLayout.getChildCount() - 1); //leave submit button
         DataEntryRow rows[] = UIDatabaseInterface.getDataEntryRows();

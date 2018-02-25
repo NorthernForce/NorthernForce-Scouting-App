@@ -58,7 +58,7 @@ public class DataExporter extends AsyncTask<Void, Void, String>{
     private String[] getCSVString() {
 
 
-        MySQLiteHelper db = MainActivity.uiDatabaseInterface.getDatabase();
+        MySQLiteHelper db = UIDatabaseInterface.getDatabase();
         Cursor c = db.selectFromTable("Performance", "*");
         String[] csv = new String[c.getCount() + 1]; //+1 for column names
         int counter = 0;
@@ -78,7 +78,7 @@ public class DataExporter extends AsyncTask<Void, Void, String>{
                     csv[counter] += "," + c.getString(i);
                 }
                 counter++;
-                Log.v("DataExporter", "csv is " + csv);
+                Log.v("DataExporter", "csv is " + csv.toString());
             } while (c.moveToNext());
         }
 

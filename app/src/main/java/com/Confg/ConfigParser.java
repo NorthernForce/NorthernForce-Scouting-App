@@ -23,7 +23,7 @@ public class ConfigParser {
     public ConfigParser() {
     }
 
-    public ArrayList parse(InputStream in) throws XmlPullParserException, IOException {
+    public ArrayList<DatabaseTable> parse(InputStream in) throws XmlPullParserException, IOException {
         try {
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
