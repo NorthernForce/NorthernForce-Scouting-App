@@ -11,7 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Placeholder"
+<<<<<<< HEAD
         android:textSize="16sp"
+=======
+        android:textSize="16dp"
+>>>>>>> master
         android:id="@+id/de_YorN_TextView"/>
     <RadioGroup
         android:layout_width="wrap_content"
@@ -23,7 +27,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Yes"
+<<<<<<< HEAD
             android:textSize="16sp"
+=======
+            android:textSize="16dp"
+>>>>>>> master
             android:theme="@style/MyRadioButton"
             android:id="@+id/de_YorN_yesButton"/>
 
@@ -32,7 +40,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No"
+<<<<<<< HEAD
             android:textSize="16sp"
+=======
+            android:textSize="16dp"
+>>>>>>> master
             android:theme="@style/MyRadioButton"
             android:id="@+id/de_YorN_noButton"/>
     </RadioGroup>
