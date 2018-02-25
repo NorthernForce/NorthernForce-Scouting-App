@@ -13,14 +13,9 @@
         android:layout_height="match_parent"
         android:text="DEFAULT_TEXT"
         android:textSize="16sp"
-        android:textSize="16dp"
         android:id="@+id/de_number_TextView"/>
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:hint=""
-        android:minWidth="20pt"
-        android:textSize="16dp"
         android:layout_height="match_parent"
         android:hint=""
         android:minWidth="20pt"
