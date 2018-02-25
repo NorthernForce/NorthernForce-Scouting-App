@@ -29,7 +29,7 @@ public class stringDataEntryRow extends DataEntryRow {
         textView.setText(this.text);
 
         editText = (EditText) rootView.findViewById(R.id.de_string_EditText);
-        editText.setHint(columnName);
+        //editText.setHint(columnName);
 
         return rootView;
     }

@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Placeholder"
+        android:textSize="16dp"
         android:id="@+id/de_YorN_TextView"/>
     <RadioGroup
         android:layout_width="wrap_content"
@@ -22,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Yes"
+            android:textSize="16dp"
             android:theme="@style/MyRadioButton"
             android:id="@+id/de_YorN_yesButton"/>
 
@@ -30,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No"
+            android:textSize="16dp"
             android:theme="@style/MyRadioButton"
             android:id="@+id/de_YorN_noButton"/>
     </RadioGroup>

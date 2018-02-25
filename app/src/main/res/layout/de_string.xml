@@ -10,11 +10,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Test question"
+        android:textSize="16dp"
         android:id="@+id/de_string_TextView"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="test answer"
+        android:textSize="16dp"
+        android:minWidth="20pt"
+        android:hint=""
         android:id="@+id/de_string_EditText"/>
 </com.google.android.flexbox.FlexboxLayout>
