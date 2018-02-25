@@ -38,7 +38,7 @@ public class numberDataEntryRow extends DataEntryRow {
         textView.setText(this.text);
 
         editText = (EditText) rootView.findViewById(R.id.de_number_EditText);
-        editText.setHint(columnName);
+        //editText.setHint(columnName);
         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         return rootView;
