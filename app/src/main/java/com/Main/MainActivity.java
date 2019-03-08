@@ -1,26 +1,19 @@
 package com.Main;
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.Bluetooth.Aggro;
 import com.Bluetooth.BluetoothActivity;
 import com.DataEntry.EnterDataActivity2019;
 import com.DataView.ViewDataActivity;
@@ -32,7 +25,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * The main activity where the app starts, has buttons to enter data, view data, or sync between devices
@@ -42,42 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static UIDatabaseInterface2019 uiDatabaseInterface;
     private Context baseContext;
-    private BluetoothAdapter bl;
     private ShareActionProvider shareActionProvider;
     private static SimpleDateFormat exportSdf = new SimpleDateFormat("yyyy-MM-dd'T'HH_mm_ss");
 
-    private UUID uuid = UUID.fromString("e720951a-a29e-4772-b32e-7c60264d5c9b");
-
-    /*
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-
-            if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
-                //discovery starts, we can show progress dialog or perform other tasks
-
-            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                //discovery finishes, dismiss progress dialog
-
-            } else if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                //bluetooth device found
-
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-
-
-                //     Log.v("Mac Address", device.getName());
-                if(device.getAddress().equalsIgnoreCase("18:3b:d2:e1:88:59")) {
-                    Log.v("Mac Address", device.getName() + "\n" + device.getAddress());
-                    Aggro ag = new Aggro(uuid, device, handler);
-                    Thread t = new Thread(ag);
-                    t.start();
-                    bl.cancelDiscovery();
-                    unregisterReceiver(mReceiver);
-                }
-            }
-        }
-    };
-    */
 
 
 
@@ -152,28 +111,20 @@ public class MainActivity extends AppCompatActivity {
         export.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //new DataExporter().execute();
 
                 String fileName = "scout-" + exportSdf.format(new Date()) + ".csv";
                 String fileContents = DataExporter.exportNow(true);
 
                 try {
                     File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-                    /*
-                    for (String s : downloadDir.list()) {
-                        System.out.println("download file: " + s);
-                    }
-                    */
                     String reportsDir = getResources().getString(R.string.scouting_reports_dir);
                     File scoutingReportsDir = new File(downloadDir, reportsDir);
                     boolean dirExists = scoutingReportsDir.exists();
-                    //System.out.println("reports directory exists: " + dirExists);
+
                     if (! dirExists) {
                         boolean success = scoutingReportsDir.mkdir();
-                        //System.out.println("Successfully created reports dir: " + success);
                     }
                     File exportFile = new File(scoutingReportsDir, fileName);
-                    //System.out.println("file location: " + exportFile.getAbsolutePath());
 
                     FileOutputStream fos = new FileOutputStream(exportFile);
                     fos.write(fileContents.getBytes());
@@ -224,31 +175,45 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        /*
         // Locate MenuItem with ShareActionProvider
         MenuItem item = menu.findItem(R.id.menu_item_share);
 
         // Fetch and store ShareActionProvider
         shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
 
+        // Prepare the share action
+        String fileName = "scout-" + exportSdf.format(new Date()) + ".csv";
+        String fileContents = DataExporter.exportNow(true);
+
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, fileContents);
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, fileName);
+        sendIntent.setType("text/csv");
+        setShareIntent(sendIntent);
+        //startActivity(Intent.createChooser(sendIntent, "Share results"));
+
+/*
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
 
+                String fileName = "scout-" + exportSdf.format(new Date()) + ".csv";
+                String fileContents = DataExporter.exportNow(true);
+
                 Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, DataExporter.exportNow());
-                sendIntent.putExtra(Intent.EXTRA_SUBJECT, exportSdf.format(new Date()) + ".csv");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, fileContents);
+                sendIntent.putExtra(Intent.EXTRA_SUBJECT, fileName);
                 sendIntent.setType("text/csv");
                 setShareIntent(sendIntent);
-                startActivity(Intent.createChooser(sendIntent, "Export results"));
+                startActivity(Intent.createChooser(sendIntent, "Share results"));
                 return false;
             }
         });
-
 */
 
         return true;
     }
+
 
     // Call to update the share intent
     private void setShareIntent(Intent shareIntent) {

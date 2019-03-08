@@ -3,31 +3,19 @@ package com.Bluetooth;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.Confg.ConfigEntry;
 import com.Main.UIDatabaseInterface2019;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.PrintWriter;
 import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.UUID;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 /**
  * Created by Oombliocarius on 11/4/15.
