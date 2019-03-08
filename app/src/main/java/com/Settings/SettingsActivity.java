@@ -4,19 +4,18 @@ package com.Settings;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 import com.Main.R;
-import com.Main.UIDatabaseInterface;
+import com.Main.UIDatabaseInterface2019;
 
 /**
  * Created by Alex Kinley on 2/25/2018.
  */
 
-public class SettingsActivity extends ActionBarActivity {
+public class SettingsActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +35,7 @@ public class SettingsActivity extends ActionBarActivity {
                                 builderTwo.setMessage("Are you REALLY sure?")
                                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
-                                                UIDatabaseInterface.resetDatabase(getBaseContext());
+                                                UIDatabaseInterface2019.resetDatabase(getBaseContext());
                                             }
                                         })
                                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

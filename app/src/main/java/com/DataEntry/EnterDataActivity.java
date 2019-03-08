@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +22,7 @@ import com.Main.UIDatabaseInterface;
 /**
  * Created by AlexK on 12/22/2015.
  */
-public class EnterDataActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
+public class EnterDataActivity extends AppCompatActivity  implements AdapterView.OnItemSelectedListener {
 
     private View dataEntryViews[];
 

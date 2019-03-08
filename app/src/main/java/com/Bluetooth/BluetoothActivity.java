@@ -7,7 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,42 +20,26 @@ import com.Main.R;
 
 import java.util.UUID;
 
-public class BluetoothActivity extends ActionBarActivity {
+public class BluetoothActivity extends AppCompatActivity {
 
 
     private BluetoothAdapter mBluetoothAdapter;
     private int REQUEST_ENABLE_BT;
 
     private UUID uuid = UUID.fromString("e720951a-a29e-4772-b32e-7c60264d5c9b");
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-            updateStatus("Recived Something");
-            String action = intent.getAction();
+    private BroadcastReceiver mReceiver;
 
-            if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
-                //discovery starts, we can show progress dialog or perform other tasks
-
-            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                //discovery finishes, dismis progress dialog
-
-            } else if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                //bluetooth device found
-
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-
-                updateStatus(device.getName());
-                //     Log.v("Mac Address", device.getName());
-                if(device.getAddress().equalsIgnoreCase("18:3b:d2:e1:88:59")) {
-                    Log.v("Mac Address", device.getName() + "\n" + device.getAddress());
-                    Aggro ag = new Aggro(uuid, device);
-                    Thread t = new Thread(ag);
-                    t.start();
-                    mBluetoothAdapter.cancelDiscovery();
-                    unregisterReceiver(mReceiver);
-                }
-            }
+    private final Handler btMessageHandler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            updateStatus(msg.obj.toString());
         }
     };
+
+    public BluetoothActivity() {
+        this.mReceiver = new CustomBroadcastReceiver(btMessageHandler);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -75,7 +62,7 @@ public class BluetoothActivity extends ActionBarActivity {
     }
 
     public void startBluetoothDiscover(){
-        boolean isMaster = (new BlueConnect().run(uuid, this));
+        boolean isMaster = (new BlueConnect(btMessageHandler).run(uuid, this));
 
         if(!isMaster) {
             IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
@@ -103,8 +90,44 @@ public class BluetoothActivity extends ActionBarActivity {
 
     }
 
-    private void updateStatus(String newStatus){
+    public void updateStatus(String newStatus){
         TextView status = (TextView) findViewById(R.id.bluetoothStatus);
         status.setText(newStatus);
+    }
+
+    private class CustomBroadcastReceiver extends BroadcastReceiver {
+
+        private Handler handler;
+
+        public CustomBroadcastReceiver(Handler handler) {
+            this.handler = handler;
+        }
+
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+
+            if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) {
+                //discovery starts, we can show progress dialog or perform other tasks
+
+            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+                //discovery finishes, dismis progress dialog
+
+            } else if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                //bluetooth device found
+
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+
+                updateStatus(device.getName());
+                //     Log.v("Mac Address", device.getName());
+                if(device.getAddress().equalsIgnoreCase("18:3b:d2:e1:88:59")) {
+                    Log.v("Mac Address", device.getName() + "\n" + device.getAddress());
+                    Aggro ag = new Aggro(uuid, device, handler);
+                    Thread t = new Thread(ag);
+                    t.start();
+                    mBluetoothAdapter.cancelDiscovery();
+                    unregisterReceiver(mReceiver);
+                }
+            }
+        }
     }
 }

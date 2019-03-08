@@ -5,37 +5,50 @@ import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-
-import com.Bluetooth.BluetoothActivity;
-import com.DataEntry.EnterDataActivity;
-import com.DataView.ViewDataActivity;
 import com.Bluetooth.Aggro;
+import com.Bluetooth.BluetoothActivity;
+import com.DataEntry.EnterDataActivity2019;
+import com.DataView.ViewDataActivity;
+import com.DataView.ViewDataActivity2019;
 import com.Settings.SettingsActivity;
-import com.easyphotopicker.*;
+import com.easyphotopicker.EasyImage;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 /**
  * The main activity where the app starts, has buttons to enter data, view data, or sync between devices
  */
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
 
-    public static UIDatabaseInterface uiDatabaseInterface;
+    public static UIDatabaseInterface2019 uiDatabaseInterface;
     private Context baseContext;
     private BluetoothAdapter bl;
-
+    private ShareActionProvider shareActionProvider;
+    private static SimpleDateFormat exportSdf = new SimpleDateFormat("yyyy-MM-dd'T'HH_mm_ss");
 
     private UUID uuid = UUID.fromString("e720951a-a29e-4772-b32e-7c60264d5c9b");
 
+    /*
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
@@ -44,7 +57,7 @@ public class MainActivity extends ActionBarActivity {
                 //discovery starts, we can show progress dialog or perform other tasks
 
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                //discovery finishes, dismis progress dialog
+                //discovery finishes, dismiss progress dialog
 
             } else if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 //bluetooth device found
@@ -55,7 +68,7 @@ public class MainActivity extends ActionBarActivity {
                 //     Log.v("Mac Address", device.getName());
                 if(device.getAddress().equalsIgnoreCase("18:3b:d2:e1:88:59")) {
                     Log.v("Mac Address", device.getName() + "\n" + device.getAddress());
-                    Aggro ag = new Aggro(uuid, device);
+                    Aggro ag = new Aggro(uuid, device, handler);
                     Thread t = new Thread(ag);
                     t.start();
                     bl.cancelDiscovery();
@@ -64,13 +77,14 @@ public class MainActivity extends ActionBarActivity {
             }
         }
     };
+    */
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        uiDatabaseInterface = new UIDatabaseInterface(this.getBaseContext());
+        uiDatabaseInterface = new UIDatabaseInterface2019(this.getBaseContext());
 
         setContentView(R.layout.activity_main);
 
@@ -84,12 +98,12 @@ public class MainActivity extends ActionBarActivity {
                 .setAllowMultiplePickInGallery(true);
 
 
-        Button enterData = (Button) (findViewById(R.id.titleScreenEnterData));
+        Button enterData = findViewById(R.id.titleScreenEnterData);
         enterData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Context context = baseContext;
-                Intent i = new Intent(context, EnterDataActivity.class);
+                Intent i = new Intent(context, EnterDataActivity2019.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 context.startActivity(i);
@@ -97,7 +111,7 @@ public class MainActivity extends ActionBarActivity {
         });
         //enterData.setTextColor(Color.GREEN);
 
-        Button viewData = (Button) (findViewById(R.id.titleScreenViewData));
+        Button viewData = findViewById(R.id.titleScreenViewData);
         viewData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,7 +123,20 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        Button bluetooth = (Button) (findViewById(R.id.titleScreenBluetooth));
+        Button viewDataTable = findViewById(R.id.titleScreenViewDataTable);
+        viewDataTable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = baseContext;
+                Intent i = new Intent(context, ViewDataActivity2019.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                context.startActivity(i);
+            }
+        });
+
+
+        Button bluetooth = findViewById(R.id.titleScreenBluetooth);
         bluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,17 +148,67 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        Button export = (Button) (findViewById(R.id.titleScreenExportData));
+        Button export = findViewById(R.id.titleScreenExportData);
         export.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DataExporter().execute();
+                //new DataExporter().execute();
+
+                String fileName = "scout-" + exportSdf.format(new Date()) + ".csv";
+                String fileContents = DataExporter.exportNow(true);
+
+                try {
+                    File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+                    /*
+                    for (String s : downloadDir.list()) {
+                        System.out.println("download file: " + s);
+                    }
+                    */
+                    String reportsDir = getResources().getString(R.string.scouting_reports_dir);
+                    File scoutingReportsDir = new File(downloadDir, reportsDir);
+                    boolean dirExists = scoutingReportsDir.exists();
+                    //System.out.println("reports directory exists: " + dirExists);
+                    if (! dirExists) {
+                        boolean success = scoutingReportsDir.mkdir();
+                        //System.out.println("Successfully created reports dir: " + success);
+                    }
+                    File exportFile = new File(scoutingReportsDir, fileName);
+                    //System.out.println("file location: " + exportFile.getAbsolutePath());
+
+                    FileOutputStream fos = new FileOutputStream(exportFile);
+                    fos.write(fileContents.getBytes());
+                    fos.close();
+
+                    // Doesn't always show up on laptop, so force a rescan
+                    Intent mediaScannerIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                    Uri fileContentUri = Uri.fromFile(exportFile);
+                    mediaScannerIntent.setData(fileContentUri);
+                    sendBroadcast(mediaScannerIntent);
+
+                    Snackbar mySnackbar = Snackbar.make(view, "Exported csv to Downloads/"
+                            + reportsDir + "/" + fileName, Snackbar.LENGTH_LONG);
+                    mySnackbar.show();
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // Code below will prompt to upload to google drive
+                // or some other sharing mechanism
+                /*
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, fileContents);
+                sendIntent.putExtra(Intent.EXTRA_SUBJECT, fileName);
+                sendIntent.setType("text/csv");
+                setShareIntent(sendIntent);
+                startActivity(Intent.createChooser(sendIntent, "Export results"));
+                */
             }
         });
 
         EasyImage.configuration(this)
                 .setImagesFolderName("Pictures");
-        Button camera = (Button) (findViewById(R.id.titleScreenCamera));
+        Button camera = findViewById(R.id.titleScreenCamera);
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,7 +223,38 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        /*
+        // Locate MenuItem with ShareActionProvider
+        MenuItem item = menu.findItem(R.id.menu_item_share);
+
+        // Fetch and store ShareActionProvider
+        shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, DataExporter.exportNow());
+                sendIntent.putExtra(Intent.EXTRA_SUBJECT, exportSdf.format(new Date()) + ".csv");
+                sendIntent.setType("text/csv");
+                setShareIntent(sendIntent);
+                startActivity(Intent.createChooser(sendIntent, "Export results"));
+                return false;
+            }
+        });
+
+*/
+
         return true;
+    }
+
+    // Call to update the share intent
+    private void setShareIntent(Intent shareIntent) {
+        if (shareActionProvider != null) {
+            shareActionProvider.setShareIntent(shareIntent);
+        }
     }
 
     @Override
@@ -167,7 +275,7 @@ public class MainActivity extends ActionBarActivity {
 
         if (id == R.id.action_enterData){
             Context context = this.getBaseContext();
-            Intent i = new Intent(context, EnterDataActivity.class);
+            Intent i = new Intent(context, EnterDataActivity2019.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
             context.startActivity(i);
@@ -176,6 +284,14 @@ public class MainActivity extends ActionBarActivity {
         if (id == R.id.action_viewData){
             Context context = this.getBaseContext();
             Intent i = new Intent(context, ViewDataActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            context.startActivity(i);
+        }
+
+        if (id == R.id.action_viewDataTable){
+            Context context = this.getBaseContext();
+            Intent i = new Intent(context, ViewDataActivity2019.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
             context.startActivity(i);

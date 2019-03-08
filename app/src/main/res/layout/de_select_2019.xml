@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    android:id="@+id/de_select_layout_2019">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="DEFAULT_TEXT"
+        android:id="@+id/de_select_TextView_2019"/>
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/de_select_Select_2019"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:spinnerMode="dropdown" />
+</LinearLayout>

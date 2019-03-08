@@ -1,0 +1,203 @@
+<config>
+	<table
+		name="Teams">
+		<column
+			name="Team_Number"
+			type="int"
+			text="Team Number"/>
+		<column
+			name="Team_Name"
+			type="String"
+			text="Team Name"/>
+		<column
+			name="High_School"
+			type="String"
+			text="High School"/>
+
+	</table>
+
+	<table
+		name="Matches">
+		<column
+			name="Team_Number"
+			type="int"
+			text="Team Number"/>
+		<column
+			name="Match_Number"
+			type="int"
+			text="Match Number"/>
+		<column
+			name="Event_Name"
+			type="String"
+			text="Event Name"/>
+		<column
+			name="Red_One"
+			type="int"
+			text="Red One"/>
+		<column
+			name="Red_Two"
+			type="int"
+			text="Red Two"/>
+		<column
+			name="Red_Three"
+			type="int"
+			text="Red Three"/>
+		<column
+			name="Blue_One"
+			type="int"
+			text="Blue One"/>
+		<column
+			name="Blue_Two"
+			type="int"
+			text="Blue Two"/>
+		<column
+			name="Blue_Three"
+			type="int"
+			text="Blue Three"/>
+	</table>
+
+	<table
+		name="Performance">
+		<column
+			name="Team_Number"
+			type="Number"
+			text="Team Number"
+			tableview="true"
+			tableHeader="TM #"
+		/>
+		<column
+			name="Match_Number"
+			type="Number"
+			text="Match Number"/>
+		<column
+			name="numHatches"
+			type="Number"
+			text="How many hatches in a match?"
+			tableview="true"
+			tableHeader="# Hatches"/>
+		<column
+			name="numCargo"
+			type="Number"
+			text="How many cargo in a match?"
+			tableview="true"
+			tableHeader="# Cargo"/>
+		<column
+			name="climb"
+			type="Select"
+			text="Climb Height?"
+			values="0,1,2,3"
+			tableview="true"
+			tableHeader="Climb"
+		/>
+		<column
+			name="ssBottomHatches"
+			type="YorN"
+			text="Can team do bottom hatches? (Sand storm)"
+			tableview="true"
+			tableHeader="SS BH"
+			filters="Sand Storm"
+		/>
+		<column
+			name="ssMiddleHatches"
+			type="YorN"
+			text="Can team do middle hatches? (Sand storm)"
+			tableview="true"
+			tableHeader="SS MH"
+			filters="Sand Storm"/>
+		<column
+			name="ssTopHatches"
+			type="YorN"
+			text="Can team do top hatches? (Sand storm)"
+			tableview="true"
+			tableHeader="SS TH"
+			filters="Sand Storm"/>
+		<column
+			name="ssBottomCargo"
+			type="YorN"
+			text="Can team do bottom cargo? (Sand storm)"
+			tableview="true"
+			tableHeader="SS BC"
+			filters="Sand Storm"/>
+		<column
+			name="ssMiddleCargo"
+			type="YorN"
+			text="Can team do middle cargo? (Sand storm)"
+			tableview="true"
+			tableHeader="SS MC"
+			filters="Sand Storm"/>
+		<column
+			name="ssTopCargo"
+			type="YorN"
+			text="Can team do top cargo? (Sand storm)"
+			tableview="true"
+			tableHeader="SS TC"
+			filters="Sand Storm"/>
+		<column
+			name="toBottomHatches"
+			type="YorN"
+			text="Can team do bottom hatches? (Tele-Op)"
+			tableview="true"
+			tableHeader="TO BH"
+			filters="Tele-Op"/>
+		<column
+			name="toMiddleHatches"
+			type="YorN"
+			text="Can team do middle hatches? (Tele-Op)"
+			tableview="true"
+			tableHeader="TO MH"
+			filters="Tele-Op"/>
+		<column
+			name="toTopHatches"
+			type="YorN"
+			text="Can team do top hatches? (Tele-Op)"
+			tableview="true"
+			tableHeader="TO TH"
+			filters="Tele-Op"/>
+		<column
+			name="toBottomCargo"
+			type="YorN"
+			text="Can team do bottom cargo? (Tele-Op)"
+			tableview="true"
+			tableHeader="TO BC"
+			filters="Tele-Op"/>
+		<column
+			name="toMiddleCargo"
+			type="YorN"
+			text="Can team do middle cargo? (Tele-Op)"
+			tableview="true"
+			tableHeader="TO MC"
+			filters="Tele-Op"/>
+		<column
+			name="toTopCargo"
+			type="YorN"
+			text="Can team do top cargo? (Tele-Op)"
+			tableview="true"
+			tableHeader="TO TC"
+			filters="Tele-Op"/>
+		<column
+			name="defence"
+			type="YorN"
+			text="Defence?"/>
+		<column
+			name="fouls"
+			type="Select"
+			text="Penalties?"
+			values="None,Yellow,Red"/>
+	</table>
+
+	<table
+		name="Events">
+		<column
+			name="Event_Name"
+			type="String"
+			text="Event Name"/>
+		<column
+			name="Date"
+			type="String"
+			text="Date"/>
+		<column
+			name="Location"
+			type="String"
+			text="Location"/>
+	</table>
+</config>

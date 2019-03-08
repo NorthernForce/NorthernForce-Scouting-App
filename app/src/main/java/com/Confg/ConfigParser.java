@@ -87,9 +87,14 @@ public class ConfigParser {
                     String type = parser.getAttributeValue(null, "type");
                     String text = parser.getAttributeValue(null, "text");
                     String options = parser.getAttributeValue(null, "options");
+                    String values = parser.getAttributeValue(null, "values");
+                    String tableviewStr = parser.getAttributeValue(null, "tableview");
+                    Boolean tableview = tableviewStr != null ? Boolean.valueOf(tableviewStr) : null;
+                    String tableHeader = parser.getAttributeValue(null, "tableHeader");
+                    String filters = parser.getAttributeValue(null, "filters");
 
                     Log.v("CP - readTable", "Found a colum " + name);
-                    list.add(new ConfigEntry(type, name, text, options));
+                    list.add(new ConfigEntry(type, name, text, values, tableview, tableHeader, options, filters));
                 }
                 if(parser.getName().equals("table")){
                     Log.v("CP - readTable", "found a table tag: " + parser.getAttributeValue(null, "name"));

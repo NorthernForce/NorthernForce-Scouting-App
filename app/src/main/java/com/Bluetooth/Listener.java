@@ -3,18 +3,31 @@ package com.Bluetooth;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
+import com.Confg.ConfigEntry;
+import com.Main.UIDatabaseInterface2019;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
-import java.io.*;
+import java.io.ObjectInputStream;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import android.database.*;
-
-import com.Confg.ConfigEntry;
 
 /**
  * Created by Oombliocarius on 11/4/15.
@@ -25,9 +38,13 @@ public class Listener implements Runnable {
     BluetoothSocket bluetoothSocket;
     InputStream inputStream;
     boolean  stopWorker;
-    int readBufferPosition;
     byte[] readBuffer;
     Thread workerThread;
+    private Handler handler;
+
+    public Listener(Handler handler) {
+        this.handler = handler;
+    }
 
     public void run() {
 
@@ -35,8 +52,10 @@ public class Listener implements Runnable {
         try {
             bluetoothServerSocket = bluetoothAdapter.listenUsingRfcommWithServiceRecord("Server", uuid);
             Log.v("Mac Address", "Listening");
+            sendHandlerMessage("Waiting for connection...");
             bluetoothSocket = bluetoothServerSocket.accept();
             Log.v("Mac Address", "Connection accepted");
+            sendHandlerMessage("Connected");
             // bluetoothSocket.connect();
             inputStream =   bluetoothSocket.getInputStream();
             Log.v("Mac Address", "Sauron's Land");
@@ -44,6 +63,10 @@ public class Listener implements Runnable {
             // Updater up = new Updater(inputStream);
             // Thread t = new Thread(up);
             // t.start();
+            workerThread.join(); // wait for this thread to finish
+            sendHandlerMessage("Closing connection");
+            bluetoothSocket.close();
+            sendHandlerMessage("Connection closed");
 
         }
         catch(Exception e) {
@@ -74,6 +97,39 @@ public class Listener implements Runnable {
         {
             public void run()
             {
+                readBuffer = new byte[1024];
+                int numBytes; // bytes returned from read()
+                // Keep listening to the InputStream until an exception occurs.
+                StringBuilder buffer = new StringBuilder();
+                while (true) {
+                    sendHandlerMessage("Reading data...");
+                    try {
+                        // Read from the InputStream.
+                        numBytes = inputStream.read(readBuffer);
+                        byte[] readBytes = new byte[numBytes];
+                        System.arraycopy(readBuffer, 0, readBytes, 0, numBytes );
+                        buffer.append(new String(readBytes));
+                    } catch (IOException e) {
+                        Log.d("Error", "Input stream was disconnected", e);
+                        break;
+                    }
+                }
+
+                String dataReceived = buffer.toString();
+                System.out.println("Received: " + dataReceived);
+
+                try {
+                    StringReader reader = new StringReader(dataReceived);
+                    CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
+                    sendHandlerMessage("Inserting into database...");
+                    UIDatabaseInterface2019.submitDataEntries(csvParser.getRecords());
+                    sendHandlerMessage("Data inserted");
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                /*
                 Log.v("Mac Address", "STARTED");
                 while(!Thread.currentThread().isInterrupted() && !stopWorker)
                 {
@@ -162,8 +218,8 @@ public class Listener implements Runnable {
 
                             }
                             byte[] hope = obo
-*/
-                    /*        ByteArrayInputStream bis = new ByteArrayInputStream(packetBytes);
+
+                            ByteArrayInputStream bis = new ByteArrayInputStream(packetBytes);
                             ObjectInput inputStream = null;
                             try {
                                 inputStream = new ObjectInputStream(bis);
@@ -184,7 +240,7 @@ public class Listener implements Runnable {
                             }
                             Log.v("Mac Address", "SIGH2");
 
-*/
+
                            //         System.arraycopy(readBuffer, 0, packetBytes, 0, packetBytes.length);
                         //    ByteArrayOutputStream obj = (ByteArrayOutputStream) deserialize(packetBytes);
 
@@ -206,13 +262,14 @@ public class Listener implements Runnable {
                         Log.v("Mac Address", "Uprising Failed");
                         stopWorker = true;
                     }
-                }
+                } */
             }
         });
 
         workerThread.start();
     }
 
+    /*
     public static Object deserialize(byte[] data) {
         try {
             ByteArrayInputStream in = new ByteArrayInputStream(data);
@@ -224,6 +281,11 @@ public class Listener implements Runnable {
         }
         return null;
     }
+    */
 
+    private void sendHandlerMessage(String message) {
+        Message msg = Message.obtain(handler, 0, message);
+        handler.sendMessage(msg);
+    }
 
 }

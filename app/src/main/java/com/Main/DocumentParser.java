@@ -2,9 +2,12 @@ package com.Main;
 
 import android.util.Log;
 
-import java.io.*;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
-import org.apache.commons.csv.*;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Basic csv parser, can parse csv files

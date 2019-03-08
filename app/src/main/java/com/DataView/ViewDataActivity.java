@@ -2,7 +2,7 @@ package com.DataView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,17 +12,20 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Spinner;
 
+import com.DataEntry.EnterDataActivity2019;
 import com.Main.MainActivity;
 import com.Main.MySQLiteHelper;
-import com.Main.UIDatabaseInterface;
 import com.Main.R;
+import com.Main.UIDatabaseInterface;
+import com.Main.UIDatabaseInterface2019;
+import com.Settings.SettingsActivity;
 
 import java.util.ArrayList;
 
 /**
  * Created by alex on 3/9/15.
  */
-public class ViewDataActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
+public class ViewDataActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     private MySQLiteHelper mySQLiteHelper;
 
@@ -31,9 +34,9 @@ public class ViewDataActivity extends ActionBarActivity implements AdapterView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.data_view);
 
-        mySQLiteHelper = UIDatabaseInterface.getDatabase();
+        mySQLiteHelper = UIDatabaseInterface2019.getDatabase();
 
-        ArrayList<String> tables = UIDatabaseInterface.getTableNames();
+        ArrayList<String> tables = UIDatabaseInterface2019.getTableNames();
 
         tables.remove("android_metadata");
 
@@ -42,14 +45,14 @@ public class ViewDataActivity extends ActionBarActivity implements AdapterView.O
         tableSpinner.setAdapter(spinnerAdapter);
         tableSpinner.setOnItemSelectedListener(this);
 
-
         this.createGridView();
     }
+
 
     private void createGridView(){
         GridView gridView = (GridView) (findViewById(R.id.dataViewGridView));
 
-        final ViewDataAdapter viewDataAdapter = new ViewDataAdapter(mySQLiteHelper, this);
+        final ViewDataAdapter2019 viewDataAdapter = new ViewDataAdapter2019(mySQLiteHelper, this);
 
         gridView.setAdapter(viewDataAdapter);
     }
@@ -70,17 +73,27 @@ public class ViewDataActivity extends ActionBarActivity implements AdapterView.O
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
-        }
-
-        if (id == R.id.action_enterData){
-            Intent i = new Intent(this, MainActivity.class);
-
+            Intent i = new Intent(this, SettingsActivity.class);
             startActivity(i);
         }
 
-        if (id == R.id.action_viewData){
+        else if (id == R.id.action_home){
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
+        }
 
+        else if (id == R.id.action_enterData){
+            Intent i = new Intent(this, EnterDataActivity2019.class);
+            startActivity(i);
+        }
+
+        else if (id == R.id.action_viewData){
+            // this is us
+        }
+
+        else if (id == R.id.action_viewDataTable) {
+            Intent i = new Intent(this, ViewDataActivity2019.class);
+            startActivity(i);
         }
 
         return super.onOptionsItemSelected(item);
@@ -93,7 +106,6 @@ public class ViewDataActivity extends ActionBarActivity implements AdapterView.O
         Log.v("EnterDataActivity", "The spinner selected the table " + selectedTable);
 
         UIDatabaseInterface.setCurrentDataViewTable(selectedTable);
-
         this.createGridView();
     }
 

@@ -3,6 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context="com.Main.MainActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_home" android:title="Home" app:showAsAction="never"/>
     <item android:id="@+id/action_viewData" android:title="View Data" app:showAsAction="never"/>
+    <item android:id="@+id/action_viewDataTable" android:title="View Performance Table" app:showAsAction="never"/>
     <item android:id="@+id/action_enterData" android:title="Enter Data" app:showAsAction="never"/>
+
+    <!--item
+        android:id="@+id/menu_item_share"
+        app:showAsAction="ifRoom"
+        android:title="Export Data"
+        app:actionProviderClass=
+            "android.support.v7.widget.ShareActionProvider" /-->
 </menu>

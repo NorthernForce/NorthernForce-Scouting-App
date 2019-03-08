@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/de_yes_or_no_layout_2019"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp">
+
+    <!-- needs to remain with this ID so that the program can find it-->
+    <!--
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Placeholder"
+        android:id="@+id/de_YorN_TextView_2019"/>
+    -->
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/de_YorN_checkbox_2019"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Switch"/>
+    <!--
+
+        android:textOff="No"
+        android:textOn="Yes"
+        android:text="Switch"
+        -->
+
+
+</LinearLayout>

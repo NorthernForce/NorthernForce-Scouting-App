@@ -1,18 +1,7 @@
 package com.Main;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.util.Log;
-
-import com.Confg.ConfigEntry;
-import com.Confg.ConfigParser;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * Created by Alex on 2/19/2015.

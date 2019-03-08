@@ -1,0 +1,84 @@
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/myCoordinatorLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.Main.MainActivity"
+    android:orientation="vertical"
+    android:id = "@+id/titleScreen">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:id = "@+id/title"
+        android:textSize="20sp"
+        android:text="Team 172 Scouting App"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:id = "@+id/titleScreenEnterData"
+        android:layout_below="@+id/title"
+        android:textSize="20sp"
+        android:text = "Enter Data"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:id = "@+id/titleScreenViewData"
+        android:layout_below="@+id/titleScreenEnterData"
+        android:textSize="20sp"
+        android:text = "View Data"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:id = "@+id/titleScreenViewDataTable"
+        android:layout_below="@+id/titleScreenViewData"
+        android:textSize="20sp"
+        android:text = "View Performance Table"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:id = "@+id/titleScreenBluetooth"
+        android:layout_below="@+id/titleScreenViewDataTable"
+        android:textSize="20sp"
+        android:text = "Bluetooth"/>
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20sp"
+        android:id = "@+id/titleScreenExportData"
+        android:layout_below="@+id/titleScreenBluetooth"
+        android:textSize="20sp"
+        android:text = "Export Data"/>
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20sp"
+        android:id = "@+id/titleScreenCamera"
+        android:layout_below="@+id/titleScreenExportData"
+        android:textSize="20sp"
+        android:text = "Camera"/>
+
+
+</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

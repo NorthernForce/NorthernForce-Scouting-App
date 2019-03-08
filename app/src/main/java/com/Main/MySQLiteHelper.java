@@ -1,16 +1,16 @@
 package com.Main;
 
-import android.content.Context;
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.Cursor;
 import android.util.Log;
 
 import com.Confg.ConfigEntry;
 
-import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /** Class that acts as an interface between the database and the application */
 public class MySQLiteHelper extends SQLiteOpenHelper {

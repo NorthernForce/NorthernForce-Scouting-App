@@ -40,8 +40,18 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_margin="24dp"
-        android:id = "@+id/titleScreenBluetooth"
+        android:id = "@+id/titleScreenViewDataTable"
         android:layout_below="@+id/titleScreenViewData"
+        android:textSize="24sp"
+        android:text = "View Performance Table"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="24dp"
+        android:id = "@+id/titleScreenBluetooth"
+        android:layout_below="@+id/titleScreenViewDataTable"
         android:textSize="24sp"
         android:text = "Bluetooth"/>
     <Button

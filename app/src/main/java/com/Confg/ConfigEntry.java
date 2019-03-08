@@ -11,22 +11,33 @@ public class ConfigEntry implements Serializable{
     private String colName;
     private String text;
     private String options;
+    private String selectOptions;
+    private Boolean tableview;
+    private String tableHeader;
+    private String filters;
 
     public ConfigEntry(){
 
     }
 
-    public ConfigEntry(String type, String colName, String text, int table){
+    public ConfigEntry(String type, String colName, String text, String selectOptions, Boolean tableview, String tableHeader, int table){
         this.type = type;
         this.colName = colName;
         this.text = text;
+        this.selectOptions = selectOptions;
+        this.tableview = tableview;
+        this.tableHeader = tableHeader;
     }
 
-    public ConfigEntry(String type, String colName, String text, String options){
+    public ConfigEntry(String type, String colName, String text, String selectOptions, Boolean tableview, String tableHeader, String options, String filters){
         this.type = type;
         this.colName = colName;
         this.text = text;
         this.options = options;
+        this.selectOptions = selectOptions;
+        this.tableview = tableview;
+        this.tableHeader = tableHeader;
+        this.filters = filters;
     }
 
     public String getType(){
@@ -61,5 +72,35 @@ public class ConfigEntry implements Serializable{
         this.options = options;
     }
 
+    public String getSelectOptions() {
+        return selectOptions;
+    }
 
+    public void setSelectOptions(String selectOptions) {
+        this.selectOptions = selectOptions;
+    }
+
+    public Boolean getTableview() {
+        return tableview;
+    }
+
+    public void setTableview(Boolean tableview) {
+        this.tableview = tableview;
+    }
+
+    public String getTableHeader() {
+        return tableHeader;
+    }
+
+    public void setTableHeader(String tableHeader) {
+        this.tableHeader = tableHeader;
+    }
+
+    public String getFilters() {
+        return filters;
+    }
+
+    public void setFilters(String filters) {
+        this.filters = filters;
+    }
 }

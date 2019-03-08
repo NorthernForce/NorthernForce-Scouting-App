@@ -4,14 +4,14 @@ package com.Bluetooth;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 
 import com.Main.MainActivity;
 
-import java.util.UUID;
-
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Created by Oombliocarius on 10/22/15.
@@ -22,8 +22,10 @@ public class BlueConnect {
     UUID j = null;
     ArrayList<BluetoothSocket> connections = new ArrayList<BluetoothSocket>(7);
     String android_id;
-    public BlueConnect() {
+    private Handler handler;
 
+    public BlueConnect(Handler handler) {
+        this.handler = handler;
     }
 
     public BlueConnect(MainActivity the, UUID uuid, Context leggo) {
@@ -46,7 +48,7 @@ public class BlueConnect {
             Log.v("Mac Address", "MASTER");
             isMaster = true;
 
-            Listener listen = new Listener();
+            Listener listen = new Listener(handler);
             listen.setUUID(j);
             Thread t = new Thread(listen);
             t.start();

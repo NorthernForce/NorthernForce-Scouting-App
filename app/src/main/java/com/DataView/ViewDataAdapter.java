@@ -11,9 +11,6 @@ import com.DataEntry.DataEntryRow;
 import com.Main.MySQLiteHelper;
 import com.Main.UIDatabaseInterface;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 /**
  * Created by alex on 8/11/15.
  */

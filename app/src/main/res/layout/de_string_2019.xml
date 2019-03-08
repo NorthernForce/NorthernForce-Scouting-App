@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:id="@+id/de_string_layout_2019">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test question"
+        android:id="@+id/de_string_TextView_2019"/>
+
+    <android.support.v7.widget.AppCompatEditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="20pt"
+        android:hint=""
+        android:id="@+id/de_string_EditText_2019"/>
+</LinearLayout>

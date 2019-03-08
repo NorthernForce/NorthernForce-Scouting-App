@@ -4,10 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.Confg.ConfigEntry;
 import com.Confg.ConfigParser;
@@ -48,7 +46,7 @@ public class UIDatabaseInterface {
         ConfigParser configParser = new ConfigParser();
         AssetManager am = context.getAssets();
         try {
-            InputStream is = am.open("configFile_new.xml");
+            InputStream is = am.open("configFile_2019.xml");
             Log.v("UIDI", is.toString());
             tables = configParser.parse(is);
 
@@ -89,7 +87,7 @@ public class UIDatabaseInterface {
         ConfigParser configParser = new ConfigParser();
         AssetManager am = context.getAssets();
         try {
-            InputStream is = am.open("configFile_new.xml");
+            InputStream is = am.open("2019.xml");
             Log.v("UIDI", is.toString());
             tables = configParser.parse(is);
 
@@ -218,6 +216,7 @@ public class UIDatabaseInterface {
 
         updateTeamTable();
     }
+
 
     public static void populateDatabase(){
         for(int i = 0; i<10; i++){

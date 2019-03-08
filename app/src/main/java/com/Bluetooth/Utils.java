@@ -2,8 +2,9 @@ package com.Bluetooth;
 
 import android.util.Log;
 
-import java.net.*;
-import java.util.*;
+import java.net.NetworkInterface;
+import java.util.Collections;
+import java.util.List;
 
 public class Utils {
 

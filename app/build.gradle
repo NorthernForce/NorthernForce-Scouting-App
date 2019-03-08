@@ -1,33 +1,79 @@
  apply plugin: 'com.android.application'
 
 repositories {
-    maven {
-        url "https://jcenter.bintray.com"
-    }
+    google()
+    jcenter()
+  //  maven {
+ //       url "https://jcenter.bintray.com"
+ //   }
 }
 
-android {
-    compileSdkVersion 21
-    buildToolsVersion '26.0.2'
 
-    defaultConfig {
-        applicationId "com.scoutingapp"
-        minSdkVersion 19
-        targetSdkVersion 19
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
-}
+ android {
+     compileSdkVersion 28
+     buildToolsVersion '28.0.3'
 
-dependencies {
-    compile 'com.android.support:appcompat-v7:21.0.3'
-    compile files('libs/commons-csv-1.1.jar')
-    compile 'com.google.android:flexbox:0.3.2'
-}
+     defaultConfig {
+         vectorDrawables.useSupportLibrary = true
+         applicationId "com.scoutingapp2019"
+         minSdkVersion 19
+         targetSdkVersion 19
+         versionCode 1
+         versionName "1.0"
+     }
+     buildTypes {
+         release {
+             minifyEnabled false
+             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+         }
+     }
+     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+     productFlavors {
+     }
+ }
+
+ dependencies {
+     implementation "com.android.support:appcompat-v7:28.0.0"
+     implementation "com.android.support:design:28.0.0"
+     implementation files('libs/commons-csv-1.1.jar')
+     implementation 'com.google.android:flexbox:1.0.0'
+
+     // sortable table
+     implementation 'de.codecrafters.tableview:tableview:2.8.0'
+     implementation 'com.evrencoskun.library:tableview:0.8.8'
+
+     // for xlsx files
+     //implementation 'org.apache.poi:poi-ooxml:3.17'
+     //implementation fileTree(dir: 'libs', include: ['*.jar'])
+     implementation "com.android.support:multidex:1.0.1"
+
+     // for connecting to google drive
+     //implementation 'com.google.api-client:google-api-client:1.23.0'
+     //implementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+     //implementation 'com.google.apis:google-api-services-drive:v3-rev110-1.23.0'
+
+     // Google Drive
+     //implementation "com.google.android.gms:play-services-auth:$play_services_version"
+     //implementation "com.google.android.gms:play-services-drive:$play_services_version"
+
+
+     //implementation 'com.google.android.gms:play-services-identity:8.4.0'
+     //implementation 'com.google.apis:google-api-services-drive:v3-rev110-1.23.0'
+     //implementation('com.google.api-client:google-api-client-android:1.22.0') {
+      //   exclude group: 'org.apache.httpcomponents'
+     //}
+
+     /*
+     implementation 'com.google.android.gms:play-services-auth:16.0.1'
+     implementation 'com.google.http-client:google-http-client-gson:1.26.0'
+     implementation('com.google.api-client:google-api-client-android:1.26.0') {
+         exclude group: 'org.apache.httpcomponents'
+     }
+     implementation('com.google.apis:google-api-services-drive:v3-rev136-1.25.0') {
+         exclude group: 'org.apache.httpcomponents'
+     }
+     implementation 'com.google.apis:google-api-services-sheets:v4-rev516-1.23.0'{
+         exclude group: 'org.apache.httpcomponents'
+     }
+     */
+ }

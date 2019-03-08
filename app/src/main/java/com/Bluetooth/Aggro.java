@@ -2,14 +2,13 @@ package com.Bluetooth;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.os.Handler;
 import android.util.Log;
-import java.lang.reflect.Method;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.lang.reflect.Method;
 import java.util.UUID;
-
-import com.Main.MainActivity;
 
 /**
  * Created by Oombliocarius on 12/17/15.
@@ -20,11 +19,13 @@ public class Aggro implements Runnable {
     OutputStream os;
     PrintStream haha;
     BluetoothDevice bD;
+    private Handler handler;
 
 
-    public Aggro(UUID u, BluetoothDevice bd) {
+    public Aggro(UUID u, BluetoothDevice bd, Handler handler) {
         ui  = u;
         bD = bd;
+        this.handler = handler;
     }
 
     public void run() {
@@ -32,13 +33,13 @@ public class Aggro implements Runnable {
             Log.v("Mac Address", "Aggro Started");
             //  bD.createBond();
             Log.v("Mac Address", pairDevice(bD) + "  PAIRING STATUS");
-            Glib glib = new Glib(ui, bD);
+            Glib glib = new Glib(ui, bD, handler);
             Thread to = new Thread(glib);
             to.run();
 
         }
         catch(Exception e) {
-
+            e.printStackTrace();
         }
     }
 
